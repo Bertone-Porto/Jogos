@@ -3,7 +3,7 @@ int main (int argc, char* args[])
 {
     /* INICIALIZACAO */
     SDL_Init(SDL_INIT_EVERYTHING);
-    SDL_Window* win = SDL_CreateWindow("Hello World!",
+    SDL_Window* win = SDL_CreateWindow("Um gato",
                          SDL_WINDOWPOS_UNDEFINED,
                          SDL_WINDOWPOS_UNDEFINED,
                          200, 150, SDL_WINDOW_SHOWN
