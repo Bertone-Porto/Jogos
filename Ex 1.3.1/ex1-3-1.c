@@ -21,6 +21,9 @@ int main (int argc, char* args[])
 
 	
 	while(x < 800){
+                if((x+5) >= 800){
+                    x = 100;
+                }
 		SDL_SetRenderDrawColor(ren, 0,0,0,0x00);
     SDL_RenderClear(ren);
     	
