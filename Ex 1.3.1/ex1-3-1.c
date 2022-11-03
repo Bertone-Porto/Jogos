@@ -25,21 +25,21 @@ int main (int argc, char* args[])
                     x = 100;
                 }
 		SDL_SetRenderDrawColor(ren, 0,0,0,0x00);
-    SDL_RenderClear(ren);
+    	SDL_RenderClear(ren);
     	
-    //pontos que somem quando são encostados 
-    if(x <= 150){ //quando o x chega na posição do ponto 1, ele some
+    	//pontos que somem quando são encostados 
+    	if(x <= 150){ //quando o x chega na posição do ponto 1, ele some
     		filledCircleColor(ren, 220, 250, 5, 0xffffffff); //ponto 1
     		filledCircleColor(ren, 370, 250, 5, 0xffffffff); //ponto 2
     		filledCircleColor(ren, 520, 250, 5, 0xffffffff); //ponto 3
-    }
-    if(x <= 280){ //quando o x chega na posição do ponto 2, ele some
+    	}
+    	if(x <= 280){ //quando o x chega na posição do ponto 2, ele some
     		filledCircleColor(ren, 370, 250, 5, 0xffffffff); //ponto 2
     		filledCircleColor(ren, 520, 250, 5, 0xffffffff); //ponto 3
-    }
-    if(x <= 440){ //quando o x chega na posição do ponto 3, ele some
+    	}
+    	if(x <= 440){ //quando o x chega na posição do ponto 3, ele some
     		filledCircleColor(ren, 520, 250, 5, 0xffffffff); //ponto 3
-    }
+    	}
     	
     	
 		filledPieRGBA(ren, x, y, r, start, end, 255, 255, 0, 255);
@@ -55,6 +55,7 @@ int main (int argc, char* args[])
 			end = 340;	
 		}
 	}
+
 
 
 
