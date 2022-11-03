@@ -20,11 +20,12 @@ int main (int argc, char* args[])
     int i, x1=220, y1=250, r1=5; //pontos
 
 	
-	while(x < 800){
-                if((x+5) >= 800){
-                    x = 100;
-                }
-		SDL_SetRenderDrawColor(ren, 0,0,0,0x00);
+    while(x < 800){
+	//para reiniciar o ciclo
+        if((x+5) >= 800){
+               x = 100;
+        }
+	SDL_SetRenderDrawColor(ren, 0,0,0,0x00);
     	SDL_RenderClear(ren);
     	
     	//pontos que somem quando são encostados 
@@ -42,18 +43,18 @@ int main (int argc, char* args[])
     	}
     	
     	
-		filledPieRGBA(ren, x, y, r, start, end, 255, 255, 0, 255);
-		SDL_RenderPresent(ren);
-		SDL_Delay(500);
-		x += 5; //o pac-man se move a cada loop
-		count += 1; //contador para abrir ou fechar a boca
-		if(count % 2 == 0){ //se count for par, fecha a boca
-			start = 1;
-			end = 358;	
-		} else{ //se count for impar, abre a boca
-			start = 20;
-			end = 340;	
-		}
+	filledPieRGBA(ren, x, y, r, start, end, 255, 255, 0, 255);
+	SDL_RenderPresent(ren);
+	SDL_Delay(500);
+	x += 5; //o pac-man se move a cada loop
+	count += 1; //contador para abrir ou fechar a boca
+	if(count % 2 == 0){ //se count for par, fecha a boca
+		start = 1;
+		end = 358;	
+	} else{ //se count for impar, abre a boca
+		start = 20;
+		end = 340;	
+	}
 	}
 
 
