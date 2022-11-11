@@ -61,13 +61,14 @@ int main (int argc, char* args[])
 			start = 20;
 			end = 340;	
 		}
+		//evento para mover para direita
 		SDL_WaitEvent(&evt);
-        if (evt.type == SDL_KEYDOWN) {
-            switch (evt.key.keysym.sym) {
-                case SDLK_RIGHT:
-                    x += 5;
-                break;
-            }
+		if (evt.type == SDL_KEYDOWN) {
+		    switch (evt.key.keysym.sym) {
+			case SDLK_RIGHT:
+			    x += 5;
+			break;
+		    }
         }
 		
 	}
