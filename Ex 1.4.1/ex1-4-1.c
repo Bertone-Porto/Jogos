@@ -72,7 +72,7 @@ int main (int argc, char* args[])
 			case (SDL_MOUSEBUTTONDOWN): //para adicionar o rect na tela
 		 		if(evt.button.button == SDL_BUTTON_LEFT){
 					
-					if(cont <= 10){ //conta quantas rect foram adicionados
+					if(cont <= 9){ //conta quantas rect foram adicionados
 						x = evt.button.x;
 						y = evt.button.y;
 						red = random()%255; green = random()%255; blue = random()%255; //cores aleatórias
