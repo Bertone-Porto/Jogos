@@ -1,3 +1,12 @@
+/*
+Faça os objetos se moverem somente no eixo X (feito)
+Desenhe uma linha de chegada (feito/beta)
+Pare os objetos que atingirem a linha de chegada
+Aguarde todos atingirem a linha de chegada
+Anuncie o objeto que chegou primeiro
+Reinicie a aplicação
+*/
+
 #include <assert.h>
 #include <SDL2/SDL.h>
 
