@@ -1,24 +1,24 @@
 #include <assert.h>
 #include <SDL2/SDL.h>
 
-//função do trabalho
-int espera = 500;
-int AUX_WaitEventTimeoutCount(SDL_Event* evt, Uint32* ms){
-    if (SDL_WaitEventTimeout(evt, espera)){
-    	espera -= (SDL_GetTicks() - *ms);
-    	if (espera <= 0) espera = 1;
-		return 1;
-    } else {
-    	espera = 500;
-    	return 0;
-    }
+int AUX_WaitEventTimeoutCount (SDL_Event* evt, Uint32* ms){
+	Uint32 tempo = 0;
+	Uint32 antes = SDL_GetTicks();
+	int isevt = SDL_WaitEventTimeout(evt, *ms);
+	if(isevt){
+		tempo = (SDL_GetTicks() - antes);
+		if(*ms < tempo)
+			tempo = *ms;
+		*ms -= tempo;		
+	}
+	else
+		*ms = 500;
+	return isevt;
 }
 
 
+
 int main (int argc, char* args[])
-
-
-
 {
     /* INICIALIZACAO */
     SDL_Init(SDL_INIT_EVERYTHING);
@@ -31,8 +31,15 @@ int main (int argc, char* args[])
 
     /* EXECUÇÃO */
     SDL_Rect r = { 40,20, 10,10 };
-    //int espera = 500;
-    while (1) {
+    SDL_Event evt;
+    int rodando=1;
+    int espera = 500;
+    while (rodando) {
+    	while(SDL_PollEvent(&evt) != 0){
+		if(evt.type == SDL_QUIT){
+			rodando = 0;
+		}
+	}
         SDL_SetRenderDrawColor(ren, 0xFF,0xFF,0xFF,0x00);
         SDL_RenderClear(ren);
         SDL_SetRenderDrawColor(ren, 0x00,0x00,0xFF,0x00);
@@ -41,7 +48,7 @@ int main (int argc, char* args[])
 
         SDL_Event evt;
         Uint32 antes = SDL_GetTicks();
-        int isevt = AUX_WaitEventTimeoutCount(&evt, &antes); // uso da função
+        int isevt = AUX_WaitEventTimeoutCount(&evt, &espera); // uso da função
         if (isevt) {
             espera -= (SDL_GetTicks() - antes);
             if (espera < 0) {
