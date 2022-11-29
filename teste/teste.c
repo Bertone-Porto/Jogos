@@ -1,75 +1,107 @@
 #include <SDL2/SDL.h>
-#include <math.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
+#include <assert.h>
 
-void DrawCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY, int32_t radius){
-   const int32_t diameter = (radius * 2);
-
-   int32_t x = (radius - 1);
-   int32_t y = 0;
-   int32_t tx = 1;
-   int32_t ty = 1;
-   int32_t error = (tx - diameter);
-
-   while (x >= y)
-   {
-      //  Each of the following renders an octant of the circle
-      SDL_RenderDrawPoint(renderer, centreX + x, centreY - y);
-      SDL_RenderDrawPoint(renderer, centreX + x, centreY + y);
-      SDL_RenderDrawPoint(renderer, centreX - x, centreY - y);
-      SDL_RenderDrawPoint(renderer, centreX - x, centreY + y);
-      SDL_RenderDrawPoint(renderer, centreX + y, centreY - x);
-      SDL_RenderDrawPoint(renderer, centreX + y, centreY + x);
-      SDL_RenderDrawPoint(renderer, centreX - y, centreY - x);
-      SDL_RenderDrawPoint(renderer, centreX - y, centreY + x);
-
-      if (error <= 0)
-      {
-         ++y;
-         error += ty;
-         ty += 2;
-      }
-
-      if (error > 0)
-      {
-         --x;
-         tx += 2;
-         error += (tx - diameter);
-      }
-   }
+int AUX_WaitEventTimeoutCount (SDL_Event* evt, Uint32* ms){
+	Uint32 tempo = 0;
+	Uint32 antes = SDL_GetTicks();
+	int isevt = SDL_WaitEventTimeout(evt, *ms);
+	if(isevt){
+		tempo = (SDL_GetTicks() - antes);
+		if(*ms < tempo)
+			tempo = *ms;
+		*ms -= tempo;		
+	}
+	else
+		*ms = 500;
+	return isevt;
 }
+
 
 int main (int argc, char* args[])
 {
-    /* INICIALIZACAO */
+     /* INICIALIZACAO */
     SDL_Init(SDL_INIT_EVERYTHING);
-    SDL_Window* win = SDL_CreateWindow("Hello World!",
+    SDL_Window* win = SDL_CreateWindow("PAC-MAN",
                          SDL_WINDOWPOS_UNDEFINED,
                          SDL_WINDOWPOS_UNDEFINED,
-                         1000, 1000, SDL_WINDOW_SHOWN
+                         700, 500, SDL_WINDOW_SHOWN
                       );
     SDL_Renderer* ren = SDL_CreateRenderer(win, -1, 0);
 
-    /* EXECUÇÃO */
-	int x=500, y=500, r=100, i;
-	while(r > 30){
-		circleColor(ren,x,y, r, 0xff0000ff);
-		filledCircleColor(ren, x, y, 30, 0xff0000ff);
-		r -= 5;
+	/* EXECUÇÃO */
+    SDL_SetRenderDrawColor(ren, 0,0,0,0x00);
+    SDL_RenderClear(ren);
+    
+    SDL_Event evt;
+    int x=100, y=250, r=100, start=20, end=340, count=0; //pie
+    int i, x1=220, y1=250, r1=5; //pontos
+    int rodando=1, espera=500;
 
+	
+	while(rodando){
+		while(SDL_PollEvent(&evt) != 0){
+			if(evt.type == SDL_QUIT){
+				rodando = 0;
+			}
+		}
+        if((x+5) >= 800){
+             x = 100;
+        }
+		SDL_SetRenderDrawColor(ren, 0,0,0,0x00);
+    	SDL_RenderClear(ren);
+    	
+    	//pontos que somem quando são encostados 
+    	if(x <= 150){ //quando o x chega na posição do ponto 1, ele some
+    		filledCircleColor(ren, 220, 250, 5, 0xffffffff); //ponto 1
+    		filledCircleColor(ren, 370, 250, 5, 0xffffffff); //ponto 2
+    		filledCircleColor(ren, 520, 250, 5, 0xffffffff); //ponto 3
+    	}
+    	if(x <= 280){ //quando o x chega na posição do ponto 2, ele some
+    		filledCircleColor(ren, 370, 250, 5, 0xffffffff); //ponto 2
+    		filledCircleColor(ren, 520, 250, 5, 0xffffffff); //ponto 3
+    	}
+    	if(x <= 440){ //quando o x chega na posição do ponto 3, ele some
+    		filledCircleColor(ren, 520, 250, 5, 0xffffffff); //ponto 3
+    	}
+    	
+    	
+		filledPieRGBA(ren, x, y, r, start, end, 255, 255, 0, 255);
+		SDL_RenderPresent(ren);
+		SDL_Delay(100);
+		
+		count += 1; //contador para abrir ou fechar a boca
+		if(count % 2 == 0){ //se count for par, fecha a boca
+			start = 1;
+			end = 358;	
+		} else{ //se count for impar, abre a boca
+			start = 20;
+			end = 340;	
+		}
+		//evento para mover para direita
+		SDL_WaitEvent(&evt);
+		Uint32 antes = SDL_GetTicks();
+		int isevt = AUX_WaitEventTimeoutCount(&evt, &espera);
+		if(isevt){
+			espera -= (SDL_GetTicks() - antes);
+			if(espera < 0){
+				espera = 0;
+			}
+			if (evt.type == SDL_KEYDOWN) {
+				switch (evt.key.keysym.sym) {
+				case SDLK_RIGHT:
+					x += 5;
+				break;
+				}
+		    } 
+			
+		}else {
+			espera=500;
+			x += 5;
+		}
+		
 	}
-	circleColor(ren,500,500, 100, 0xff0000ff);
-	//circleRGBA(ren, 100, 100, 50, 255, 0, 0, 255);
-	//ellipseRGBA(ren, 500, 300, 400, 200, 255 ,0,0,255);
-
-	//stringRGBA(ren, 110, 350, "oooiiiii", 255, 0, 0,255);
-	//filledPieRGBA(ren, 600, 200,360,0,200,255,0,0,255);
-	//roundedRectangleRGBA(ren, 100, 200,250,300,100,255,0,0,255);
-	filledCircleColor(ren, 500, 500, 30, 0xff0000ff);
-
-
-	SDL_RenderPresent(ren);
-    SDL_Delay(10000);
+	
 
     /* FINALIZACAO */
     SDL_DestroyRenderer(ren);
