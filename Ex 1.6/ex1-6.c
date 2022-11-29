@@ -39,6 +39,7 @@ int main (int argc, char* args[])
         SDL_RenderClear(ren);
         SDL_SetRenderDrawColor(ren, 0x00,0x00,0xFF,0x00);
 		SDL_RenderDrawLine(ren, 400, 10, 400, 490); 
+		SDL_IntersectRectAndLine(&r1, 400,10,400,490);
         SDL_RenderFillRect(ren, &r1);
 		SDL_RenderFillRect(ren, &r2);
 		SDL_RenderFillRect(ren, &r3);
@@ -54,12 +55,6 @@ int main (int argc, char* args[])
             }
             if (evt.type == SDL_KEYDOWN) {
                 switch (evt.key.keysym.sym) {
-                    /*case SDLK_UP:
-                        r1.y -= 5;
-                        break;
-                    case SDLK_DOWN:
-                        r1.y += 5;
-                        break;*/
                     case SDLK_LEFT:
                         r1.x -= 5;
                         break;
@@ -76,7 +71,6 @@ int main (int argc, char* args[])
 			}} else {
 		        espera = 500;
 		        r2.x += 2;
-		        //r2.y += 2;
         	}
     }
 
