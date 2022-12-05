@@ -94,7 +94,7 @@ int main (int argc, char* args[])
 						switch (evt.key.keysym.sym) {
 						  	case SDLK_RIGHT:
 								if(r1.x <= 405)
-						        	r1.x += 50;
+						        	r1.x += 10;
 						        if(r2.x <= 405 && r3.x <= 405)
 						        	vencedor = 1;
 						        break;
