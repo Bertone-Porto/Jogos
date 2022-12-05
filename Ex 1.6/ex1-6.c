@@ -32,20 +32,13 @@ void MostraResultado(int vencedor, SDL_Renderer* ren){
 	if(vencedor == 1){
 		boxColor(ren, 10, 100, 490, 180, 0x00000000);
 		stringRGBA(ren, 250, 250, "Vencedor: rect 1", 250, 0, 0, 250);
-		//SDL_RenderPresent(ren);
-		//SDL_SetRenderDrawColor(ren, 0,0,0,0x00);
-		//SDL_Rect r5 = { 40,50, 10,10 };
-		//SDL_RenderFillRect(ren, &r5);
+
 	} else if(vencedor == 2){
 		stringRGBA(ren, 250, 250, "Vencedor: rect 2",0,250,0,250 );
-		//SDL_SetRenderDrawColor(ren, 255,0,0,0x00);
-		//SDL_Rect r5 = { 40,50, 10,10 };
-		//SDL_RenderFillRect(ren, &r5);
+
 	} else{
 		stringRGBA(ren, 250, 250, "Vencedor: rect 3", 0,0,250,250);
-		//SDL_SetRenderDrawColor(ren, 0,255,0,0x00);
-		//SDL_Rect r5 = { 40,50, 10,10 };
-		//SDL_RenderFillRect(ren, &r5);
+
 	}
 	
 	SDL_RenderPresent(ren);
