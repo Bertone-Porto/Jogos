@@ -57,7 +57,7 @@ void MostraResultado(int vencedor, SDL_Renderer* ren){
 	}
 	
 	SDL_RenderPresent(ren);
-	SDL_Delay(2000);
+	SDL_Delay(4000);
 
 }
 
