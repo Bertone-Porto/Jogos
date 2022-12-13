@@ -42,6 +42,7 @@ int main (int argc, char* args[])
 		SDL_SetRenderDrawColor(ren, 250, 0, 0, 250);
 		SDL_RenderFillRect(ren, &r1);
 		
+		//MENSAGENS
 		if(arrasta){
 			stringRGBA(ren, 20,20,"arrastando", 250,0,0,255);
 		}
@@ -109,7 +110,7 @@ int main (int argc, char* args[])
 			//ARRASTA
 			if(evt.type == SDL_MOUSEMOTION){
 				SDL_GetMouseState(&x,&y);
-				if(r1.x <= posX  && r1.y <= posY  && selecionado){
+				if(r1.x <= 460  && r1.y <= 460 && selecionado){
 					arrasta = true;
 					clicado = false;
 					posX = evt.button.x-40;
