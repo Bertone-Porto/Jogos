@@ -31,7 +31,7 @@ int main (int argc, char* args[])
 
     /* EXECUÇÃO */
 	bool rodando=true, selecionado=false, cancel=false, arrasta=false, clicado=false;
-	int posX=200, posY=200, x, y, xAnterior, yAnterior;
+	int posX=200, posY=200, x, y, xAnterior=0, yAnterior=0;
 	SDL_Event evt;
 	SDL_Rect r1 = { posX, posY, 80,80 };
 	int espera = 10, vencedor=0;
@@ -46,7 +46,7 @@ int main (int argc, char* args[])
 		if(arrasta){
 			stringRGBA(ren, 20,20,"arrastando", 250,0,0,255);
 		}
-		if(!arrasta && !selecionado && !clicado && !cancel){
+		if(!arrasta && !selecionado && !clicado && !cancel && r1.x == xAnterior){
 			stringRGBA(ren, 20,20,"solto", 250,0,0,255);
 		} 
 		if(!arrasta && !selecionado && clicado && !cancel){
@@ -77,7 +77,6 @@ int main (int argc, char* args[])
 						arrasta = false;
 						cancel = true;	
 					break;
-
 				}
 			}
 			
@@ -86,8 +85,6 @@ int main (int argc, char* args[])
 				if(evt.button.button == SDL_BUTTON_LEFT){
 					SDL_GetMouseState(&x, &y);
 					if((x > r1.x) && (x < r1.x + r1.w) && (y > r1.y) && (y < r1.y + r1.h)){
-						xAnterior = posX;
-						yAnterior = posY;
 						selecionado = true;
 						clicado = true;
 						cancel = false;
@@ -101,9 +98,12 @@ int main (int argc, char* args[])
 					SDL_GetMouseState(&x, &y);
 					if(evt.button.state == SDL_RELEASED){
 						if((x > r1.x) && (x < r1.x + r1.w) && (y > r1.y) && (y < r1.y + r1.h)){
+							xAnterior = posX;
+							yAnterior = posY;
 							selecionado = false;
 							arrasta = false;
 							cancel = false;
+							clicado = false;
 						}
 					}
 				}
