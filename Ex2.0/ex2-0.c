@@ -98,11 +98,13 @@ int main (int argc, char* args[])
 			//LIBERA
 			if(evt.type == SDL_MOUSEBUTTONUP){
 				if(evt.button.button == SDL_BUTTON_LEFT){
-					//SDL_GetMouseState(&x, &y);
+					SDL_GetMouseState(&x, &y);
 					if(evt.button.state == SDL_RELEASED){
-						selecionado = false;
-						arrasta = false;
-						cancel = false;
+						if((x > r1.x) && (x < r1.x + r1.w) && (y > r1.y) && (y < r1.y + r1.h)){
+							selecionado = false;
+							arrasta = false;
+							cancel = false;
+						}
 					}
 				}
 			}
