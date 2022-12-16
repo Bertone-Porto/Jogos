@@ -27,15 +27,8 @@ int main (int argc, char* args[])
                          700, 500, SDL_WINDOW_SHOWN
                       );
     SDL_Renderer* ren = SDL_CreateRenderer(win, -1, 0);
-	SDL_Texture* img1 = IMG_LoadTexture(ren, amarelo-aberta.png);
-	SDL_Texture* img2 = IMG_LoadTexture(ren, amarelo-fechada.png);
-	SDL_Texture* img3 = IMG_LoadTexture(ren, azul-aberta.png);
-	SDL_Texture* img4 = IMG_LoadTexture(ren, azul-fechada.png);
-	SDL_Texture* img5 = IMG_LoadTexture(ren, verde-aberta.png);
-	SDL_Texture* img6 = IMG_LoadTexture(ren, verde-fechada.png);
-	SDL_Texture* img7 = IMG_LoadTexture(ren, vermelho-aberta.png);
-	SDL_Texture* img8 = IMG_LoadTexture(ren, vermelho-fechada.png);
-
+	SDL_Texture* img = IMG_LoadTexture(ren, /*imagem*/);
+	
 	/* EXECUÇÃO */
    
     SDL_Event evt;
