@@ -35,13 +35,13 @@ int main (int argc, char* args[])
     bool continua = true;
     SDL_Event evt;
     int isup = 1;
-    int x = 80;
+    int x = 0, y=130;
     int espera = 50;
-    int yC=390, wC=40, hC=80;
+    int yC=-10, wC=40, hC=80;
     while (continua) {
         SDL_SetRenderDrawColor(ren, 186,254,202,0);
         SDL_RenderClear(ren);
-        SDL_Rect r = { x,140, 70,70 };
+        SDL_Rect r = { x,y, 70,70 };
         SDL_Rect c;
       	Uint32 antes = SDL_GetTicks();
         int isevt = AUX_WaitEventTimeoutCount(&evt,&espera);       
@@ -57,32 +57,33 @@ int main (int argc, char* args[])
 	else{   
 		switch(isup){
 			case 1:
-				c = (SDL_Rect) {   0,yC, wC,hC };
+				c = (SDL_Rect) {   0,-10, wC,hC };
 			break;
 			case 2:
-				c = (SDL_Rect) { 32,yC, wC,hC };
+				c = (SDL_Rect) { 0,275, wC,hC };
+				y = 120;
 			break;
 			case 3:
-				c = (SDL_Rect) { 72,yC, wC,hC };
+				c = (SDL_Rect) { 32,275, wC,hC };
+				y=110;
 			break;
 			case 4:
-				c = (SDL_Rect) { 112,yC, wC,hC };
+				c = (SDL_Rect) { 32,275, wC,hC };
+				y=100;
 			break;
 			case 5:
-				c = (SDL_Rect) { 142,yC, wC,hC };
+				c = (SDL_Rect) { 64,275, wC,hC };
+				y=100;
 			break;
 			case 6:
-				c = (SDL_Rect) { 176,yC, wC,hC };
+				c = (SDL_Rect) { 144,275, wC,hC };
+				y=110;
 			break;
 			case 7:
-				c = (SDL_Rect) { 256,yC, wC,hC };
+				c = (SDL_Rect) { 144,275, wC,hC };
+				y=105;
 			break;
-			case 8:
-				c = (SDL_Rect) { 288,yC, wC,hC };
-			break;
-			case 9:
-				c = (SDL_Rect) { 328,yC, wC,hC };
-			break;
+			
 
 		}
 		isup++;
@@ -90,8 +91,11 @@ int main (int argc, char* args[])
 		SDL_RenderCopy(ren, img, &c, &r);
 		SDL_RenderPresent(ren);
 		espera = 220;
-		if(isup > 9){
+		x = (x + 10) % 200;
+
+		if(isup > 7){
 			isup = 1;
+			y=130;
 		}
 		
 	}
