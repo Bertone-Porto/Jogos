@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <assert.h>
 #include <SDL2/SDL.h>
 #include <stdbool.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
@@ -36,8 +37,8 @@ int main (int argc, char* args[])
 	int estado_atual = 0;
 
 
-	bool rodando=true, selecionado=false;
-	int posX=200, posY=200, x, y, xAnterior, yAnterior;
+	bool rodando=true, selecionado=false, arrastado=false;
+	int posX=200, posY=200, x, y, xAnterior=200, yAnterior=200;
 	SDL_Event evt;
 	SDL_Rect r1 = { posX, posY, 80,80 };
 	int espera = 10, dx, dy, novoX, novoY;
@@ -99,8 +100,11 @@ int main (int argc, char* args[])
 								if(estado_atual = CLICANDO){
 									estado_atual = CLICADO;
 
-								} else if(estado_atual == ARRASTANDO){
+								}
+								if(arrastado){
+									
 									estado_atual = SOLTO;
+									arrastado=false;
 								}			
 								xAnterior = posX;
 								yAnterior = posY;
@@ -116,7 +120,9 @@ int main (int argc, char* args[])
 				if(r1.x <= 460  && r1.y <= 460 && selecionado){
 					if(estado_atual == CLICANDO){
 						estado_atual = ARRASTANDO;
+						arrastado =true;
 					}
+					
 					posX = novoX + dx;
 					posY = novoY + dy;
 					r1.x = posX ;
