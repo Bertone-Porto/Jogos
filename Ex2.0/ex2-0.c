@@ -96,7 +96,7 @@ int main (int argc, char* args[])
 				if(evt.button.button == SDL_BUTTON_LEFT){
 					SDL_GetMouseState(&x, &y);
 						if(evt.button.state == SDL_RELEASED){
-							if((x > r1.x) && (x < r1.x + r1.w) && (y > r1.y) && (y < r1.y + r1.h)){
+							if((x > r1.x) && (x < r1.x + r1.w) && (y > r1.y) && (y < r1.y + r1.h) && estado_atual != CANCELADO){
 								if(estado_atual = CLICANDO){
 									estado_atual = CLICADO;
 
@@ -138,3 +138,4 @@ int main (int argc, char* args[])
 		}
 		}
 	}
+
