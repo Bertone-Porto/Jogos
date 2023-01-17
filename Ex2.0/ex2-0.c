@@ -67,7 +67,7 @@ int main (int argc, char* args[])
 			}
 		 
 			//ESCAPE//
-			if (evt.type == SDL_KEYDOWN && estado_atual == ARRASTANDO) {
+			if (evt.type == SDL_KEYDOWN && estado_atual == ARRASTANDO || estado_atual == CLICANDO) {
 				switch (evt.key.keysym.sym) {
 					case SDLK_ESCAPE:
 						estado_atual = CANCELADO;
@@ -113,6 +113,33 @@ int main (int argc, char* args[])
 						}
 				}
 			}
+
+			//ARRASTA//
+			if(evt.type == SDL_MOUSEMOTION){
+				SDL_GetMouseState(&novoX,&novoY);
+				if(r1.x <= 460  && r1.y <= 460 && selecionado){
+					if(estado_atual == CLICANDO){
+						estado_atual = ARRASTANDO;
+						arrastado =true;
+					}
+					
+					posX = novoX + dx;
+					posY = novoY + dy;
+					r1.x = posX ;
+					r1.y = posY ;
+				}
+			}
+		}
+
+		switch (evt.type) {
+			case SDL_QUIT:
+				rodando = false;
+				break;
+		}
+		}
+	}
+
+
 
 			//ARRASTA//
 			if(evt.type == SDL_MOUSEMOTION){
